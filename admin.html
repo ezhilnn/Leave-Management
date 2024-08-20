@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="admin.css">
+    <title>Admin Leave Management</title>
+</head>
+<body>
+    <h1>Admin Leave Management</h1>
+    <a href="staff.html" class="top-right-btn">Go to Staff Page</a>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Leave Type</th>
+                <th>Reason</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="leaveRequests">
+            <!-- Leave requests will be populated here -->
+        </tbody>
+    </table>
+
+    <script>
+        function fetchAllLeaves() {
+            fetch("http://localhost:3000/getAllLeaves")
+                .then(response => response.json())
+                .then(data => {
+                    let tableRows = "";
+                    data.forEach(leave => {
+                        const startDate = new Date(leave.StartDate).toISOString().split('T')[0];
+                        const endDate = new Date(leave.EndDate).toISOString().split('T')[0];
+        
+                        tableRows += `
+                            <tr>
+                                <td>${leave.EmployeeName}</td>
+                                <td>${leave.LeaveType}</td>
+                                <td>${leave.Reason}</td>
+                                <td>${startDate}</td>
+                                <td>${endDate}</td>
+                                <td>${leave.Status}</td>
+                            </tr>
+                        `;
+                    });
+                    document.getElementById("leaveRequests").innerHTML = tableRows;
+                });
+        }
+        
+
+        // Fetch all leave requests when the page loads
+        window.onload = fetchAllLeaves;
+    </script>
+</body>
+</html>

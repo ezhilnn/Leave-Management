@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="staff.css">
+
+    <title>Employee Leave Request</title>
+</head>
+<body>
+    <h1>Employee Leave Request</h1>
+    <a href="admin.html" class="top-right-btn">Go to Admin Page</a>
+    
+    <label>Enter Employee ID:</label>
+    <input type="text" id="employeeID" />
+    <button onclick="fetchEmployee()">Fetch Details</button>
+    
+    <div id="employeeDetails" style="display:none;">
+        <p id="employeeName"></p>
+        <p id="employeeDept"></p>
+        <p id="employeeDesignation"></p>
+
+        <h2>Submit Leave Request</h2>
+        <label>Leave Type:</label>
+        <input type="text" id="leaveType"><br>
+        <label>Reason:</label>
+        <textarea id="reason"></textarea><br>
+        <label>Start Date:</label>
+        <input type="date" id="startDate"><br>
+        <label>End Date:</label>
+        <input type="date" id="endDate"><br>
+        <button onclick="submitLeave()">Submit Leave</button>
+    </div>
+
+    <script>
+        function fetchEmployee() {
+            const employeeID = document.getElementById("employeeID").value;
+            
+            fetch(`http://localhost:3000/getEmployee/${employeeID}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        document.getElementById("employeeName").innerText = "Name: " + data[0].EmployeeName;
+                        document.getElementById("employeeDept").innerText = "Department: " + data[0].Department;
+                        document.getElementById("employeeDesignation").innerText = "Designation: " + data[0].Designation;
+                        document.getElementById("employeeDetails").style.display = "block";
+                    } else {
+                        alert("Employee not found");
+                    }
+                });
+        }
+
+        function submitLeave() {
+            const employeeID = document.getElementById("employeeID").value;
+            const leaveType = document.getElementById("leaveType").value;
+            const reason = document.getElementById("reason").value;
+            const startDate = document.getElementById("startDate").value;
+            const endDate = document.getElementById("endDate").value;
+
+            const leaveData = {
+                EmployeeID: employeeID,
+                LeaveType: leaveType,
+                Reason: reason,
+                StartDate: startDate,
+                EndDate: endDate
+            };
+
+            fetch("http://localhost:3000/submitLeave", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(leaveData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            });
+        }
+    </script>
+</body>
+</html>

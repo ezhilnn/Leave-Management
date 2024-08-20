@@ -1,0 +1,111 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+h1 {
+    text-align: center;
+    color: #343a40;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+/* Table Container */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Table Head */
+table th {
+    padding: 16px 20px;
+    background-color: #007bff;
+    color: white;
+    text-align: left;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Table Body */
+table td {
+    padding: 12px 20px;
+    font-size: 1rem;
+    color: #495057;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Alternating Rows */
+table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Hover Effect on Rows */
+table tr:hover {
+    background-color: #e2e6ea;
+}
+
+/* Status Column Styling */
+table td:nth-child(6) {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+/* Status Badge */
+.status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.875rem;
+}
+
+.status.pending {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.status.approved {
+    background-color: #28a745;
+    color: white;
+}
+
+.status.rejected {
+    background-color: #dc3545;
+    color: white;
+}
+
+.top-right-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.top-right-btn:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table {
+        font-size: 0.9rem;
+    }
+
+    table th, table td {
+        padding: 12px 15px;
+    }
+}
