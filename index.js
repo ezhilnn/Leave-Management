@@ -47,6 +47,44 @@ app.post('/submitLeave', (req, res) => {
     res.send({ message: 'Leave request submitted' });
   });
 });
+// Update leave request status
+// Update leave status
+app.post('/updateLeaveStatus', (req, res) => {
+  const requestID = req.body.requestID; // Use requestID from the request body
+  const status = req.body.status;
+
+  if (!requestID || !status) {
+      return res.status(400).send({ success: false, message: 'Missing requestID or status' });
+  }
+
+  const sql = 'UPDATE LeaveRequests SET Status = ? WHERE RequestID = ?';
+  db.query(sql, [status, requestID], (err, result) => {
+      if (err) {
+          console.error("Error updating leave status:", err);
+          return res.status(500).send({ success: false, message: 'Error updating leave status' });
+      }
+
+      res.send({ success: true, message: 'Leave status updated' });
+  });
+});
+
+
+app.get('/getAllLeaves1', (req, res) => {
+  const sql = `SELECT LeaveRequests.RequestID, Employees.EmployeeName, LeaveRequests.LeaveType, LeaveRequests.Reason, LeaveRequests.StartDate, LeaveRequests.EndDate, LeaveRequests.Status 
+               FROM LeaveRequests 
+               INNER JOIN Employees ON LeaveRequests.EmployeeID = Employees.EmployeeID`;
+  
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error("Error fetching leave requests:", err);
+          return res.status(500).send({ success: false, message: 'Error fetching leave requests' });
+      }
+      res.send(results); // Return results if no error
+  });
+});
+
+
+
 
 // Get all leave requests for admin
 app.get('/getAllLeaves', (req, res) => {

@@ -82,12 +82,53 @@ table td:nth-child(6) {
     color: white;
 }
 
+/* Action Buttons */
+table td:nth-child(7) {
+    text-align: center;
+}
+
+button {
+    padding: 8px 15px;
+    margin: 0 5px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    background-color: #ced4da;
+    color: #6c757d;
+}
+
+/* Approve and Reject Buttons */
+button.approve-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+button.reject-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Hover Effect for Enabled Buttons */
+button.approve-btn:hover:enabled {
+    background-color: #218838;
+}
+
+button.reject-btn:hover:enabled {
+    background-color: #c82333;
+}
+
+/* Top Right Button */
 .top-right-btn {
     position: absolute;
     top: 20px;
     right: 20px;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: white;
     border: none;
     cursor: pointer;
@@ -96,7 +137,7 @@ table td:nth-child(6) {
 }
 
 .top-right-btn:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
 /* Responsive Design */
@@ -107,5 +148,11 @@ table td:nth-child(6) {
 
     table th, table td {
         padding: 12px 15px;
+    }
+
+    button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        margin: 3px 0;
     }
 }
